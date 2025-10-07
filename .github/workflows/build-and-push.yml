@@ -42,5 +42,6 @@ jobs:
           tags: |
             ghcr.io/ahsaan-uddin/wexa-ai-devops-assessment:${{ github.sha }}
             ghcr.io/ahsaan-uddin/wexa-ai-devops-assessment:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          # Remove these two lines:
+          # cache-from: type=gha
+          # cache-to: type=gha,mode=max
