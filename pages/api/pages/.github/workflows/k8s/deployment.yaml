@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wexa-app
+  labels:
+    app: wexa-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: wexa-app
+  template:
+    metadata:
+      labels:
+        app: wexa-app
+    spec:
+      containers:
+        - name: wexa-app
+          image: ghcr.io/ahsaan-uddin/wexa-ai-devops-assessment:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 5
